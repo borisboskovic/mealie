@@ -1,7 +1,7 @@
 services:
   mealie:
     container_name: mealie
-    image: mealie:dev
+#    image: mealie:dev
     build:
       context: ../
       target: production
@@ -10,17 +10,17 @@ services:
     volumes:
       - mealie-data:/app/data/
     ports:
-      - 9091:9000
+      - '9091:9000'
     environment:
       ALLOW_SIGNUP: "false"
       LOG_LEVEL: "DEBUG"
 
-      DB_ENGINE: sqlite # Optional: 'sqlite', 'postgres'
+      DB_ENGINE: postgres # Optional: 'sqlite', 'postgres'
       # =====================================
       # Postgres Config
       POSTGRES_USER: mealie
       POSTGRES_PASSWORD: mealie
-      POSTGRES_SERVER: postgres
+      POSTGRES_SERVER: mealie-postgres
       POSTGRES_PORT: 5432
       POSTGRES_DB: mealie
       # =====================================
@@ -32,7 +32,25 @@ services:
       # SMTP_FROM_EMAIL=
       # SMTP_USER=
       # SMTP_PASSWORD=
+    networks:
+      mealie-network:
+
+  mealie-postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: mealie
+      POSTGRES_DB: mealie
+      POSTGRES_USER: mealie
+    ports:
+      - '5432:5432'
+    networks:
+      mealie-network:
+    volumes:
+      - mealie-pg-data:/var/lib/postgresql
 
 volumes:
   mealie-data:
-    driver: local
+  mealie-pg-data:
+
+networks:
+  mealie-network:
