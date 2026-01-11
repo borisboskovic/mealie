@@ -32,4 +32,4 @@ jobs:
 
       - name: Copy to VPS
         run: |
-          rsync -az --delete ./ vps:$VPS_DEPLOY_ROOT
+          rsync -az --delete ./ vps:$VPS_DEPLOY_DIR
