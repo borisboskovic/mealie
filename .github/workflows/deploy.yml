@@ -33,3 +33,11 @@ jobs:
       - name: Copy to VPS
         run: |
           rsync -az --delete ./ vps:$VPS_DEPLOY_DIR
+
+      - name: Start the containers
+        run: |
+          ssh vps << EOF
+            set -e
+            cd src/docker
+            docker compose up -d --build
+          EOF

@@ -1,3 +1,5 @@
+name: mealie
+
 services:
   mealie:
     container_name: mealie
