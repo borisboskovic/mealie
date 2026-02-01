@@ -14,7 +14,7 @@ services:
     ports:
       - '9091:9000'
     environment:
-      ALLOW_SIGNUP: "false"
+      ALLOW_SIGNUP: "true"
       LOG_LEVEL: "DEBUG"
 
       DB_ENGINE: postgres # Optional: 'sqlite', 'postgres'
